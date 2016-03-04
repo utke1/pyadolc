@@ -220,6 +220,38 @@ class OperationsTests ( TestCase ):
         x = condassign(x,cond,y,z)
         assert x == 5
 
+    def test_double_condeqassign_if(self):
+        x = 3.
+        y = 4.
+        cond = 0.
+
+        x = condeqassign(x,cond,y)
+        print x
+        assert_almost_equal(x,4.)
+
+        x = 3.
+        y = 4.
+        cond = -1.
+        x = condeqassign(x,cond,y)
+        print x
+        assert_almost_equal(x,3.)
+
+    def test_double_condeqassign_if_else(self):
+        x = 3.
+        y = 4.
+        z = 5.
+        cond = 0.
+
+        x = condeqassign(x,cond,y,z)
+        assert x == 4.
+
+        x = 3.
+        y = 4.
+        z = 5.
+        cond = -1.
+
+        x = condeqassign(x,cond,y,z)
+        assert x == 5
 
     def test_adouble_condassign_if(self):
         x = adouble(3.)
@@ -237,6 +269,21 @@ class OperationsTests ( TestCase ):
         print x
         assert_almost_equal(x.val, 3.)
 
+    def test_adouble_condeqassign_if(self):
+        x = adouble(3.)
+        y = adouble(4.)
+        cond = adouble(0.)
+
+        x = condeqassign(x,cond,y)
+        print x
+        assert_almost_equal(x.val, 4.)
+
+        x = adouble(3.)
+        y = adouble(4.)
+        cond = adouble(-3.)
+        x = condeqassign(x,cond,y)
+        print x
+        assert_almost_equal(x.val, 3.)
 
     def test_xuchen_condassign(self):
         """
@@ -288,6 +335,24 @@ class OperationsTests ( TestCase ):
         print x
         assert_almost_equal(x.val, 5.)
 
+    def test_adouble_condeqassign_if_else(self):
+        x = adouble(3.)
+        y = adouble(4.)
+        z = adouble(5.)
+        cond = adouble(0.)
+
+        x = condeqassign(x,cond,y,z)
+        print x
+        assert_almost_equal(x.val, 4.)
+
+        x = adouble(3.)
+        y = adouble(4.)
+        z = adouble(5.)
+        cond = adouble(-3.)
+
+        x = condeqassign(x,cond,y,z)
+        print x
+        assert_almost_equal(x.val, 5.)
 
 class CorrectnessTests(TestCase):
     def test_sin(self):
