@@ -254,13 +254,19 @@ class OperationsTests ( TestCase ):
         assert x == 5
 
     def test_adouble_condassign_if(self):
-        x = adouble(3.)
+        trace_on(1)
+        x = independent(adouble(3.))
         y = adouble(4.)
-        cond = adouble(1.)
-
-        x = condassign(x,cond,y)
-        print x
-        assert_almost_equal(x.val, 4.)
+        cond = adouble(x-1.)
+        r = dependent(condassign(x,cond,y))
+        trace_off()
+        assert_almost_equal(r.val, 4.)
+        y_arr = function(1,numpy.array([3.0]))
+        assert_almost_equal(y_arr[0],4.0)
+        y_arr = function(1,numpy.array([1.0]))
+        assert_almost_equal(y_arr[0],1.0)
+        y_arr = function(1,numpy.array([.5]))
+        assert_almost_equal(y_arr[0],.5)
 
         x = adouble(3.)
         y = adouble(4.)
@@ -270,13 +276,19 @@ class OperationsTests ( TestCase ):
         assert_almost_equal(x.val, 3.)
 
     def test_adouble_condeqassign_if(self):
-        x = adouble(3.)
+        trace_on(1)
+        x = independent(adouble(3.))
         y = adouble(4.)
-        cond = adouble(0.)
-
-        x = condeqassign(x,cond,y)
-        print x
-        assert_almost_equal(x.val, 4.)
+        cond = adouble(x-1.)
+        r = dependent(condeqassign(x,cond,y))
+        trace_off()
+        assert_almost_equal(r.val, 4.)
+        y_arr = function(1,numpy.array([3.0]))
+        assert_almost_equal(y_arr[0],4.0)
+        y_arr = function(1,numpy.array([1.0]))
+        assert_almost_equal(y_arr[0],4.0)
+        y_arr = function(1,numpy.array([.5]))
+        assert_almost_equal(y_arr[0],.5)
 
         x = adouble(3.)
         y = adouble(4.)
