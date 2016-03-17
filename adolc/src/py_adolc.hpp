@@ -75,6 +75,7 @@ adouble wrapped_condeqassign_adouble_if_else(adouble &res, const adouble &cond, 
 /* THIN WRAPPER FOR OVERLOADED FUNCTIONS */
 int trace_on_default_argument(short tape_tag){ return trace_on(tape_tag,0);}
 void trace_off_default_argument(){ trace_off(0);}
+void set_stop_op_wrapped(unsigned long stopOp) {return set_stop_op(stopOp);}
 
 /* C STYLE CALLS OF FUNCTIONS */
 int c_wrapped_function			(short tape_tag, int M, int N, bpn::array &bpn_x, bpn::array &bpn_y );
@@ -225,6 +226,7 @@ BOOST_PYTHON_MODULE(_adolc)
 
 	def("trace_on",trace_on_default_argument);
 	def("trace_off",trace_off_default_argument);
+	def("set_stop_op",set_stop_op_wrapped);
 
 
 	/* c style functions */
